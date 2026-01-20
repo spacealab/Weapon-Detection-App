@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weapon Detection System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #00d2ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        img {
+            border: 3px solid #00d2ff;
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn-stop {
+            background: #ff4757;
+            color: white;
+        }
+
+        .btn-stop:hover {
+            background: #ff6b81;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Weapon Detection Live Feed</h1>
+        <div class="video-container">
+            <img src="{{ url_for('video_feed') }}" alt="Video Stream">
+        </div>
+
+        <div class="controls">
+            <p>Detection Running...</p>
+            <button class="btn btn-stop" onclick="stopServer()">STOP SERVER</button>
+        </div>
+    </div>
+
+    <script>
+        function stopServer() {
+            if (confirm("Are you sure you want to stop the server and camera?")) {
+                fetch('/shutdown', { method: 'POST' })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Server stopping... You can close this tab.");
+                            document.body.innerHTML = "<h1>Server Stopped</h1><p>You can close this window.</p>";
+                        }
+                    })
+                    .catch(err => console.error(err));
+            }
+        }
+    </script>
+</body>
+
+</html>

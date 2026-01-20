@@ -1,0 +1,21 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE settings
+.vscode/
+.idea/
+
+# YOLO/Torch specific
+runs/
+*.pt
+!best.pt
+# We usually ignore .pt models (large), but user needs best.pt. I will whitelist it.
+# If best.pt is > 100MB, git might reject it without LFS. 
+# Best.pt for yolov7 is ~70MB to 150MB.
+# I will NOT ignore *.pt generally, or just whitelist best.pt.
